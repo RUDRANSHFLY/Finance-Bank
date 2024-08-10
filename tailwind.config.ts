@@ -22,6 +22,7 @@ const config = {
     },
     extend: {
       colors: {
+        bankGradient: "#0179FE",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
