@@ -2,6 +2,7 @@ import React from "react";
 import { RightSideBarProps } from "../../../types";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
+import BankCard from "../banks/BankCard";
 
 const RightSideBar = ({
   bank,
@@ -43,10 +44,42 @@ const RightSideBar = ({
               "relative flex flex-1 flex-col items-center justify-center gap-5 "
             }
           >
-            <div className={"relative z-10"}>BANK CARD !</div>
+            <div className={"relative z-10"}>
+              <BankCard
+                account={{
+                  id: "",
+                  availableBalance: 0,
+                  currentBalance: 1500,
+                  officialName: "",
+                  mask: "",
+                  insititutionId: "",
+                  name: "Rudransh",
+                  type: "",
+                  subtype: "",
+                  appwriteItemId: "",
+                  shareableId: "",
+                }}
+                userName={"Rudransh"}
+              />
+            </div>
             {banks[1] && (
               <div className={"absolute right-0 top-8 z-0 w-[90%]"}>
-                BANK CARD 2
+                <BankCard
+                  account={{
+                    id: "",
+                    availableBalance: 0,
+                    currentBalance: 5000,
+                    officialName: "",
+                    mask: "",
+                    insititutionId: "",
+                    name: "Rudransh",
+                    type: "",
+                    subtype: "",
+                    appwriteItemId: "",
+                    shareableId: "",
+                  }}
+                  userName={"Rudransh"}
+                />
               </div>
             )}
           </div>
