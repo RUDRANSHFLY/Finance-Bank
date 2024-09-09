@@ -1,4 +1,5 @@
 import NavBar from "@/components/navbar/NavBar";
+import RightSideBar from "@/components/navbar/RightSideBar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
 
@@ -35,7 +36,28 @@ const Home = () => {
               totalCurrentBalance={mainTotalBalanceBox.mainTotalCurrentBalance}
             />
           </header>
+          RECENT TRANSACTION
         </div>
+        <RightSideBar
+          transactions={[]}
+          banks={[{}, {}]}
+          bank={[{}, {}]}
+          user={{
+            $id: "",
+            email: "rakafly58@gmail.com",
+            userId: "",
+            dwollaCustomerUrl: "",
+            dwollaCustomerId: "",
+            firstName: "Rudransh",
+            lastName: "Ahir",
+            address1: "",
+            city: "",
+            state: "",
+            postalCode: "",
+            dateOfBirth: "",
+            ssn: "",
+          }}
+        />
       </section>
     </div>
   );
