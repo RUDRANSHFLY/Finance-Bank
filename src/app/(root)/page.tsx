@@ -40,7 +40,7 @@ const Home = () => {
         </div>
         <RightSideBar
           transactions={[]}
-          banks={[{}, {}]}
+          banks={[{ currentBalance: 1500 }, {}]}
           bank={[{}, {}]}
           user={{
             $id: "",
