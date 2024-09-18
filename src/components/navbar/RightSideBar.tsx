@@ -16,15 +16,12 @@ const RightSideBar = ({
         <div className={"profile-banner"} />
         <div className={"profile"}>
           <div className={"profile-img"}>
-            <span className={"text-5xl font-bold text-blue-500"}>
-              {user.firstName[0]}
+            <span className={"text-5xl font-bold text-blue-500 uppercase"}>
+              {user.name[0] || "User-name"}
             </span>
           </div>
           <div className={"profile-details"}>
-            <h1 className={"profile-name"}>
-              {" "}
-              {user.firstName} {user.lastName}
-            </h1>
+            <h1 className={"profile-name"}> {user.name}</h1>
             <p className={"profile-email"}>{user.email}</p>
           </div>
         </div>
@@ -53,13 +50,13 @@ const RightSideBar = ({
                   officialName: "",
                   mask: "",
                   insititutionId: "",
-                  name: "Rudransh",
+                  name: user.name,
                   type: "",
                   subtype: "",
                   appwriteItemId: "",
                   shareableId: "",
                 }}
-                userName={"Rudransh"}
+                userName={user.name}
               />
             </div>
             {banks[1] && (
@@ -72,13 +69,13 @@ const RightSideBar = ({
                     officialName: "",
                     mask: "",
                     insititutionId: "",
-                    name: "Rudransh",
+                    name: user.name,
                     type: "",
                     subtype: "",
                     appwriteItemId: "",
                     shareableId: "",
                   }}
-                  userName={"Rudransh"}
+                  userName={user.name}
                 />
               </div>
             )}
