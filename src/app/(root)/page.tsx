@@ -1,9 +1,10 @@
+import { getLoggedInUser } from "@/actions/user.actions";
 import NavBar from "@/components/navbar/NavBar";
 import RightSideBar from "@/components/navbar/RightSideBar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
 
-const Home = () => {
+const Home = async () => {
   const headerType = "greeting";
   const headerTitle = "Welcome";
   const headerUser = {
@@ -19,6 +20,8 @@ const Home = () => {
   const headerSubTitle =
     "Access and manage your account and transactions efficiently";
 
+  const loggedInUser = await getLoggedInUser();
+
   return (
     <div>
       <section className={"home"}>
@@ -27,7 +30,7 @@ const Home = () => {
             <NavBar
               type={headerType}
               tiitle={headerTitle}
-              user={headerUser?.name || "Guest"}
+              user={loggedInUser?.name || "Guest"}
               subTitle={headerSubTitle}
             />
             <TotalBalanceBox
@@ -43,13 +46,14 @@ const Home = () => {
           banks={[{ currentBalance: 1500 }, {}]}
           bank={[{}, {}]}
           user={{
+            name: loggedInUser?.name,
             $id: "",
-            email: "rakafly58@gmail.com",
+            email: loggedInUser?.email,
             userId: "",
             dwollaCustomerUrl: "",
             dwollaCustomerId: "",
-            firstName: "Rudransh",
-            lastName: "Ahir",
+            firstName: loggedInUser?.firstName,
+            lastName: loggedInUser?.lastName,
             address1: "",
             city: "",
             state: "",
