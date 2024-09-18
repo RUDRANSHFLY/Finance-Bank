@@ -6,3 +6,7 @@ export function formatAmount(amount: number) {
   });
   return formatter.format(amount);
 }
+
+export const parseStringify = (value: any) => {
+  return JSON.parse(JSON.stringify(value));
+};
