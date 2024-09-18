@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "backdrop-filter",
+          "@layer",
+          "@layer",
+          "scrollbar-width",
+          "scrollbar-width"
+        ]
+      }
+    ],
+    "css-prefix-order": "off"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_chr <= 124",
+    "not chrome <= 125",
+    "not edge <= 125",
+    "not ios_saf <= 17.5",
+    "not opera <= 109",
+    "not safari <= 17.5",
+    "not samsung <= 24"
+  ]
+}
