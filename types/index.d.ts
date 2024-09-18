@@ -20,6 +20,7 @@ declare type User = {
   dwollaCustomerId: string;
   firstName: string;
   lastName: string;
+  name: string;
   address1: string;
   city: string;
   state: string;
@@ -61,6 +62,11 @@ export declare interface MobileNavProps {
   user: User;
 }
 
+export declare interface FooterProps {
+  user: User;
+  type?: "mobile" | "desktop";
+}
+
 export declare interface SideBarProps {
   user: User;
 }
@@ -92,3 +98,25 @@ export declare interface CreditCardProps {
   userName: string;
   showBalance?: boolean;
 }
+
+/* 
+  ! Auth Related
+*/
+
+export declare type SignUpParams = {
+  firstName?: string;
+  lastName?: string;
+  address1?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  dateOfBirth?: string;
+  ssn?: string;
+  email: string;
+  password: string;
+};
+
+export declare type SignInParams = {
+  email: string;
+  password: string;
+};
