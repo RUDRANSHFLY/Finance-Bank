@@ -12,6 +12,16 @@ declare type Account = {
   shareableId: string;
 };
 
+declare type Bank = {
+  $id: string;
+  accountId: string;
+  bankId: string;
+  accessToken: string;
+  fundingSourceUrl: string;
+  userId: string;
+  shareableId: string;
+};
+
 declare type User = {
   $id: string;
   email: string;
@@ -28,6 +38,16 @@ declare type User = {
   dateOfBirth: string;
   ssn: string;
 };
+
+/* 
+  ! Plaid Related
+*/
+
+export interface PlaidLinkProps {
+  user: User;
+  variant?: "primary" | "ghost";
+  dwollaCustomerId?: string;
+}
 
 /* 
   ! Transaction Related
@@ -104,14 +124,14 @@ export declare interface CreditCardProps {
 */
 
 export declare type SignUpParams = {
-  firstName?: string;
-  lastName?: string;
-  address1?: string;
-  city?: string;
-  state?: string;
-  postalCode?: string;
-  dateOfBirth?: string;
-  ssn?: string;
+  firstName: string;
+  lastName: string;
+  address1: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
+  ssn: string;
   email: string;
   password: string;
 };
@@ -120,3 +140,57 @@ export declare type SignInParams = {
   email: string;
   password: string;
 };
+
+export type exchangePublicTokenProps = {
+  publicToken: string;
+  user: User;
+};
+
+/* 
+  ! Dwolla Related
+*/
+
+export interface CreateFundingSourceOptions {
+  customerId: string; // Dwolla Customer ID
+  fundingSourceName: string; // Dwolla Funding Source Name
+  plaidToken: string; // Plaid Account Processor Token
+  _links: object; // Dwolla on Demand Authorization Link
+}
+
+export interface addFundingSourceParams {
+  dwollaCustomerId: string;
+  processorToken: string;
+  bankName: string;
+}
+
+export interface NewDwollaCustomerParams {
+  firstName: string;
+  lastName: string;
+  email: string;
+  type: string;
+  address1: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  dateOfBirth: string;
+  ssn: string;
+}
+
+export interface TransferParams {
+  sourceFundingSourceUrl: string;
+  destinationFundingSourceUrl: string;
+  amount: string;
+}
+
+/* 
+  ! Bank Related
+*/
+
+export interface CreateBankAccountProps {
+  acessToken: string;
+  userId: string;
+  accountId: string;
+  bankId: string;
+  fundingSourceUrl: string;
+  shareableId: string;
+}
