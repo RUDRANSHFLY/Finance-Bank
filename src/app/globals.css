@@ -356,4 +356,18 @@
   .footer_image {
     @apply relative size-5 max-xl:w-full max-xl:flex max-xl:justify-center max-xl:items-center;
   }
+
+  /* ? PladLink Classes */
+
+  .pladlink-primary {
+    @apply text-16 rounded-lg border border-bankGradient bg-bank-gradient font-s\
+      text- shadow-form;
+  }
+  .pladlink-ghost {
+    @apply flex cursor-pointer items-center justify-center gap-3 rounded-lg
+    px-3 py-7 hover:bg-white lg:justify-center;
+  }
+  .pladlink-deafult {
+    @apply flex !justify-start cursor-pointer gap-3 rounded-lg !bg-transparent flex-row;
+  }
 }
