@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 
-import { date, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,6 +17,7 @@ import { authFormSchema } from "./helper";
 import CustomInput from "./CustomInput";
 import { Loader2 } from "lucide-react";
 import { signIn, signUp } from "@/actions/user.actions";
+import PlaidLink from "../plaid/PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
@@ -37,7 +38,19 @@ const AuthForm = ({ type }: { type: string }) => {
     setIsLoading(true);
     try {
       if (type === "sign-up") {
-        const newUser = await signUp(data);
+        const userData = {
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          dateOfBirth: data.dateOfBirth!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          ssn: data.ssn!,
+        };
+        const newUser = await signUp(userData);
         setUser(newUser);
       }
       if (type === "sign-in") {
@@ -82,7 +95,7 @@ const AuthForm = ({ type }: { type: string }) => {
       </header>
       {user ? (
         <div className={"flex flex-col gap-4"}>
-          <h1>{/* pladcnlink */}</h1>
+          <PlaidLink user={user} variant={"primary"} />
         </div>
       ) : (
         <>
@@ -142,10 +155,9 @@ const AuthForm = ({ type }: { type: string }) => {
                     <div className={"flex gap-4"}>
                       <CustomInput
                         control={form.control}
-                        name={"dateofBirth"}
+                        name={"dateOfBirth"}
                         label={"Date of Birth"}
                         placeHolder={"YYYY-MM-DD"}
-                        type={"date"}
                       />
                       <CustomInput
                         control={form.control}
