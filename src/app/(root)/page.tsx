@@ -24,7 +24,8 @@ const Home = async () => {
 
   return (
     <div>
-      <section className={"home"}>
+      <h1>Home Page</h1>
+      {/* <section className={"home"}>
         <div className={"home-content"}>
           <header className={"home-header"}>
             <NavBar
@@ -62,7 +63,7 @@ const Home = async () => {
             ssn: "",
           }}
         />
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -13,21 +13,17 @@ import { Button } from "../ui/button";
 import { createLinkToken, exchangePublicToken } from "@/actions/user.actions";
 
 const PlaidLink = ({ user, dwollaCustomerId, variant }: PlaidLinkProps) => {
+  const [token, setToken] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     const getLinkedToken = async () => {
       const data = await createLinkToken(user);
-
       setToken(data?.linkToken);
     };
 
     getLinkedToken();
-
-    return () => {};
   }, [user]);
-
-  const [token, setToken] = useState("");
 
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     async (public_token: string) => {
@@ -35,6 +31,7 @@ const PlaidLink = ({ user, dwollaCustomerId, variant }: PlaidLinkProps) => {
         publicToken: public_token,
         user,
       });
+
       router.push("/");
     },
     [user, router]
@@ -45,16 +42,30 @@ const PlaidLink = ({ user, dwollaCustomerId, variant }: PlaidLinkProps) => {
     onSuccess,
   };
 
-  const { ready, open } = usePlaidLink(config);
+  const { open, ready } = usePlaidLink(config);
 
   return (
     <>
       {variant === "primary" ? (
-        <Button className={"plaidlink-primary"}>Connect Bank</Button>
+        <Button
+          onClick={() => open()}
+          disabled={!ready}
+          className={"plaidlink-primary"}
+        >
+          Connect Bank
+        </Button>
       ) : variant === "ghost" ? (
-        <Button className={"pladlink-ghost"}>Connect Bank</Button>
+        <Button
+          onClick={() => open()}
+          variant={"ghost"}
+          className={"pladlink-ghost"}
+        >
+          Connect Bank
+        </Button>
       ) : (
-        <Button className={"pladlink-deafult"}>Connect Bank</Button>
+        <Button onClick={() => open()} className={"pladlink-deafult"}>
+          Connect Bank
+        </Button>
       )}
     </>
   );

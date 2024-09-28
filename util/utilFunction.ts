@@ -17,3 +17,7 @@ export function extractCustomerIdFromUrl(url: string) {
   const customerId = parts[parts.length - 1];
   return customerId;
 }
+
+export function encryptId(id: string) {
+  return btoa(id);
+}

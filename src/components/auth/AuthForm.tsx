@@ -20,9 +20,9 @@ import { signIn, signUp } from "@/actions/user.actions";
 import PlaidLink from "../plaid/PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const formSchema = authFormSchema(type);
 
@@ -65,6 +65,8 @@ const AuthForm = ({ type }: { type: string }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 

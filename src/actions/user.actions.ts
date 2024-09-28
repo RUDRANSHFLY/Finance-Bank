@@ -11,6 +11,7 @@ import {
 import { ID } from "node-appwrite";
 import { cookies } from "next/headers";
 import {
+  encryptId,
   extractCustomerIdFromUrl,
   parseStringify,
 } from "../../util/utilFunction";
@@ -22,6 +23,7 @@ import {
 } from "plaid";
 import plaidClient from "@/helper/plaid";
 import { addFundingSource, createDwollaCustomer } from "./dwolla.actions";
+import { revalidatePath } from "next/cache";
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -34,7 +36,7 @@ export const signIn = async ({ email, password }: SignInParams) => {
     const { account } = await createAdminClient();
     const response = await account.createEmailPasswordSession(email, password);
 
-    return parseStringify(response);
+    return response;
   } catch (error) {
     console.error("Error", error);
   }
@@ -102,7 +104,7 @@ export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
     const user = await account.get();
-    return parseStringify(user);
+    return user;
   } catch (error) {
     return null;
   }
@@ -136,9 +138,9 @@ export const createLinkToken = async (user: User) => {
       country_codes: ["US"] as CountryCode[],
     };
 
-    const reponse = await plaidClient.linkTokenCreate(tokenParams);
+    const response = await plaidClient.linkTokenCreate(tokenParams);
 
-    return parseStringify({ linkToken: reponse.data.link_token });
+    return parseStringify({ linkToken: response.data.link_token });
   } catch (error) {
     console.log(error);
   }
@@ -154,7 +156,7 @@ export const exchangePublicToken = async ({
     });
 
     const accessToken = reponse.data.access_token;
-    const itmeId = reponse.data.item_id;
+    const itemId = reponse.data.item_id;
 
     const accountResponse = await plaidClient.accountsGet({
       access_token: accessToken,
@@ -182,6 +184,21 @@ export const exchangePublicToken = async ({
     if (!fundingSourceUrl) {
       throw Error;
     }
+
+    await createBankAccount({
+      userId: user.$id,
+      bankId: itemId,
+      accountId: accountData.account_id,
+      acessToken: accessToken,
+      fundingSourceUrl,
+      shareableId: encryptId(accountData.account_id),
+    });
+
+    revalidatePath("/");
+
+    return parseStringify({
+      publicTokenExchange: "complete",
+    });
   } catch (error) {
     console.log("An error occured while creating exchanging token :", error);
   }
